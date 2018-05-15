@@ -5,8 +5,9 @@
 #@author:mazhicheng
 
 import requests
+from bs4 import BeautifulSoup
 
-need_to_pa_url = 'https://www.baidu.com/'
+need_to_pa_url = 'http://www.biqukan.com/1_1094/'
 assum_my = {'user_agent':'Mozilla/5.0'}
 #获取head
 get_head = requests.head(need_to_pa_url)
@@ -18,6 +19,11 @@ get_url = requests.get(url = need_to_pa_url, headers = assum_my)
 get_url.encoding = get_url.apparent_encoding
 body_result = get_url.text
 print('\033[33;1m 抓取body：\033[0m \033[32;1m {} \033[0m'.format(body_result))
+
+#过滤信息
+filter_my = BeautifulSoup(body_result)
+filter_result = filter_my.find_all('div', class_ = 'listmain')
+print(filter_result[0])
 
 #参考信息
 print('_____________________________________________')
